@@ -1,0 +1,16 @@
+﻿<#+
+
+void WriteIndented(Action writeAction, string indent = "\t")
+{
+    PushIndent(indent);
+    writeAction();
+    PopIndent();
+}
+void WriteBlock(Action writeAction, string indent = "\t")
+{
+    WriteLine("{");
+    WriteIndented(writeAction, indent);
+    WriteLine("}");
+}
+
+#>

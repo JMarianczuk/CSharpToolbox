@@ -1,0 +1,33 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".generated.cs" #>
+<#@ include file="..\\CodeGeneration\\CodeGeneration.ttinclude" #>
+
+using System.Collections.Generic;
+
+namespace CSharpToolbox.Collections
+{
+	public interface IInitializableCollection<TElement> : IEnumerable<TElement>
+	{
+		void Add(TElement element);
+	}
+<# 
+WriteIndented(() =>
+{
+	foreach (var number in Enumerable.Range(1, 16))
+	{
+		var numbers = Enumerable.Range(1, number);
+		var typeParameters = string.Join(", ", numbers.Select(x => "T" + x));
+		WriteLine("public interface IInitializableCollection<TElement, " + typeParameters + "> : IInitializableCollection<TElement>");
+		WriteBlock(() =>
+		{
+			var addParameters = string.Join(", ", numbers.Select(x => "T" + x + " item" + x));
+			WriteLine("void Add(" + addParameters + ");");
+		});
+	}
+});
+#>
+}

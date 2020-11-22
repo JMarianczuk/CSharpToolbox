@@ -1,0 +1,70 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".generated.cs" #>
+<#@ include file="..\\CodeGeneration\\CodeGeneration.ttinclude" #>
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace CSharpToolbox.Collections
+{
+    public abstract class InitializableCollectionBase<TElement> : IInitializableCollection<TElement>
+    {
+        protected readonly IList<TElement> Container = new List<TElement>();
+
+        public void Add(TElement element)
+        {
+            Container.Add(element);
+        }
+
+        public IEnumerator<TElement> GetEnumerator()
+        {
+            return Container.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+    public class InitializableCollection<TElement> : InitializableCollectionBase<TElement>
+    {
+        
+    }
+<#
+WriteIndented(() => 
+{
+    foreach (var number in Enumerable.Range(1, 16))
+    {
+        var numbers = Enumerable.Range(1, number);
+        var typeParameters = string.Join(", ", numbers.Select(x => "T" + x));
+        WriteLine("public class InitializableCollection<TElement, " + typeParameters + ">");
+        WriteIndented(() => 
+        {
+            WriteLine(": InitializableCollection<TElement>,");
+            WriteLine("IInitializableCollection<TElement, " + typeParameters + ">");
+        });
+        WriteBlock(() => 
+        {
+            WriteLine("private readonly Func<" + typeParameters + ", TElement> _map;");
+            WriteLine("public InitializableCollection(Func<" + typeParameters + ", TElement> map)");
+            WriteBlock(() =>
+            {
+                WriteLine("_map = map;");
+            });
+            var addParameters = string.Join(", ", numbers.Select(x => "T" + x + " item" + x));
+            var mapParameters = string.Join(", ", numbers.Select(x => "item" + x));
+            WriteLine("public void Add(" + addParameters + ")");
+            WriteBlock(() =>
+            {
+                WriteLine("Container.Add(_map(" + mapParameters + "));");
+            });
+        });
+    }
+});
+#>
+}
