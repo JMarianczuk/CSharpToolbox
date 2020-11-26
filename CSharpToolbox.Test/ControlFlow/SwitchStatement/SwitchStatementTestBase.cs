@@ -2,7 +2,7 @@
 using CSharpToolbox.ControlFlow;
 using FluentAssertions;
 
-namespace CSharpToolbox.Test.ControlFlow
+namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
 {
     public abstract class SwitchStatementTestBase<TMatch, TResult> : GivenWhenThen where TMatch : IEquatable<TMatch>
     {

@@ -3,7 +3,7 @@ using CSharpToolbox.ControlFlow;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CSharpToolbox.Test.ControlFlow
+namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
 {
     using DefaultSection = SwitchStatement<string, int>.DefaultSection;
     [TestClass]
