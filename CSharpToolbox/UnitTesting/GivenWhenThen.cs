@@ -1,6 +1,5 @@
 ﻿using MoreLinq;
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CSharpToolbox.Test
 {

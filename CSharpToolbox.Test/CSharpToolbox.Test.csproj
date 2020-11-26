@@ -52,7 +52,11 @@
     <Compile Include="ControlFlow\SwitchStatement\SwitchStatementTest.cs" />
     <Compile Include="ControlFlow\SwitchStatement\SwitchStatementTestBase.cs" />
     <Compile Include="ControlFlow\SwitchStatement\SyntaxTest.cs" />
-    <Compile Include="GivenWhenThen.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions\BoolResultType.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions\IEnumerableExtensionsTestBase.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions\NoneTest.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions\WhereNotTest.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions\IEnumerableResultType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +79,7 @@
       <Version>2.1.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
