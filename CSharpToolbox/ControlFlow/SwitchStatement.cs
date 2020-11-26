@@ -96,11 +96,14 @@ namespace CSharpToolbox.ControlFlow
             }
         }
     }
-    public class SwitchStatement<TMatch, TResult> : SwitchStatementBase<TMatch, TResult> where TMatch : IEquatable<TMatch>
+    public class SwitchStatement<TMatch, TResult> : SwitchStatementBase<TMatch, TResult>, 
+        ICollectionInitializable<TMatch, Action, TResult>
+            where TMatch : IEquatable<TMatch>
     {
-        public IInitializableCollection<SwitchSection, TMatch, Action, TResult> Cases { get; } =
+        private readonly InitializableCollection<SwitchSection, TMatch, Action, TResult> _cases = 
             new InitializableCollection<SwitchSection, TMatch, Action, TResult>(SwitchSection.Create);
-        protected override IEnumerable<SwitchSection> SectionsInternal => Cases;
+        public ICollectionInitializable<TMatch, Action, TResult> Cases => _cases;
+        protected override IEnumerable<SwitchSection> SectionsInternal => _cases;
 
         public DefaultSection Default { get; set; }
         protected override DefaultSection DefaultInternal => Default;
@@ -111,13 +114,17 @@ namespace CSharpToolbox.ControlFlow
         }
     }
 
-    public class SwitchStatement<TMatch> : SwitchStatementBase<TMatch, bool> where TMatch : IEquatable<TMatch>
+    public class SwitchStatement<TMatch> : SwitchStatementBase<TMatch, bool>,
+        ICollectionInitializable<TMatch, Action>
+            where TMatch : IEquatable<TMatch>
     {
         public const bool DefaultReturnValue = true;
-        public IInitializableCollection<SwitchSection, TMatch, Action> Cases { get; } =
+
+        private readonly InitializableCollection<SwitchSection, TMatch, Action> _cases = 
             new InitializableCollection<SwitchSection, TMatch, Action>((value, action) =>
                 new SwitchSection(value, action, DefaultReturnValue));
-        protected override IEnumerable<SwitchSection> SectionsInternal => Cases;
+        public ICollectionInitializable<TMatch, Action> Cases => _cases;
+        protected override IEnumerable<SwitchSection> SectionsInternal => _cases;
 
         public DefaultSection Default { get; set; }
 
@@ -150,14 +157,18 @@ namespace CSharpToolbox.ControlFlow
         }
     }
 
-    public class MapStatement<TMatch, TResult> : SwitchStatementBase<TMatch, TResult>
-        where TMatch : IEquatable<TMatch>
+    public class MapStatement<TMatch, TResult> : SwitchStatementBase<TMatch, TResult>,
+        ICollectionInitializable<TMatch, TResult>
+            where TMatch : IEquatable<TMatch>
     {
         private const Action DefaultAction = null;
-        public IInitializableCollection<SwitchSection, TMatch, TResult> Cases { get; } =
+
+        private readonly InitializableCollection<SwitchSection, TMatch, TResult> _cases =
             new InitializableCollection<SwitchSection, TMatch, TResult>((value, result) =>
                 new SwitchSection(value, DefaultAction, result));
-        protected override IEnumerable<SwitchSection> SectionsInternal => Cases;
+        public ICollectionInitializable<TMatch, TResult> Cases => _cases;
+            
+        protected override IEnumerable<SwitchSection> SectionsInternal => _cases;
 
         public DefaultSection Default { get; set; }
 

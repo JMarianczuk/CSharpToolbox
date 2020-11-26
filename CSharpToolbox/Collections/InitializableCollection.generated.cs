@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CSharpToolbox.Collections
 {
-    public abstract class InitializableCollectionBase<TElement> : IInitializableCollection<TElement>
+    public abstract class InitializableCollectionBase<TElement> : ICollectionInitializable<TElement>
     {
         protected readonly IList<TElement> Container = new List<TElement>();
 
@@ -28,23 +28,11 @@ namespace CSharpToolbox.Collections
     {
         
     }
-	public class InitializableCollection<TElement, T1>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1>
-	{
-		private readonly Func<T1, TElement> _map;
-		public InitializableCollection(Func<T1, TElement> map)
-		{
-			_map = map;
-		}
-		public void Add(T1 item1)
-		{
-			Container.Add(_map(item1));
-		}
-	}
 	public class InitializableCollection<TElement, T1, T2>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2>
 	{
 		private readonly Func<T1, T2, TElement> _map;
 		public InitializableCollection(Func<T1, T2, TElement> map)
@@ -57,8 +45,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3>
 	{
 		private readonly Func<T1, T2, T3, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, TElement> map)
@@ -71,8 +61,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4>
 	{
 		private readonly Func<T1, T2, T3, T4, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, TElement> map)
@@ -85,8 +77,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, TElement> map)
@@ -99,8 +93,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, TElement> map)
@@ -113,8 +109,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, TElement> map)
@@ -127,8 +125,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, TElement> map)
@@ -141,8 +141,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TElement> map)
@@ -155,8 +157,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TElement> map)
@@ -169,8 +173,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TElement> map)
@@ -183,8 +189,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TElement> map)
@@ -197,8 +205,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TElement> map)
@@ -211,8 +221,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TElement> map)
@@ -225,8 +237,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TElement> map)
@@ -239,8 +253,10 @@ namespace CSharpToolbox.Collections
 		}
 	}
 	public class InitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>
-		: InitializableCollection<TElement>,
-		IInitializableCollection<TElement, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>
+		: InitializableCollectionBase<TElement>,
+		IEnumerable<TElement>,
+		ICollectionInitializable<TElement>,
+		ICollectionInitializable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>
 	{
 		private readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TElement> _map;
 		public InitializableCollection(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TElement> map)

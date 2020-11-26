@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace CSharpToolbox.Collections
 {
-    public abstract class InitializableCollectionBase<TElement> : IInitializableCollection<TElement>
+    public abstract class InitializableCollectionBase<TElement> : ICollectionInitializable<TElement>
     {
         protected readonly IList<TElement> Container = new List<TElement>();
 
@@ -38,15 +38,17 @@ namespace CSharpToolbox.Collections
 <#
 WriteIndented(() => 
 {
-    foreach (var number in Enumerable.Range(1, 16))
+    foreach (var number in Enumerable.Range(2, 15))
     {
         var numbers = Enumerable.Range(1, number);
         var typeParameters = string.Join(", ", numbers.Select(x => "T" + x));
         WriteLine("public class InitializableCollection<TElement, " + typeParameters + ">");
         WriteIndented(() => 
         {
-            WriteLine(": InitializableCollection<TElement>,");
-            WriteLine("IInitializableCollection<TElement, " + typeParameters + ">");
+            WriteLine(": InitializableCollectionBase<TElement>,");
+            WriteLine("IEnumerable<TElement>,");
+            WriteLine("ICollectionInitializable<TElement>,");
+            WriteLine("ICollectionInitializable<" + typeParameters + ">");
         });
         WriteBlock(() => 
         {

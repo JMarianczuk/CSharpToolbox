@@ -6,14 +6,10 @@
 <#@ output extension=".generated.cs" #>
 <#@ include file="..\\CodeGeneration\\CodeGeneration.ttinclude" #>
 
-using System.Collections.Generic;
+using System.Collections;
 
 namespace CSharpToolbox.Collections
 {
-	public interface IInitializableCollection<TElement> : IEnumerable<TElement>
-	{
-		void Add(TElement element);
-	}
 <# 
 WriteIndented(() =>
 {
@@ -21,7 +17,7 @@ WriteIndented(() =>
 	{
 		var numbers = Enumerable.Range(1, number);
 		var typeParameters = string.Join(", ", numbers.Select(x => "T" + x));
-		WriteLine("public interface IInitializableCollection<TElement, " + typeParameters + "> : IInitializableCollection<TElement>");
+		WriteLine("public interface ICollectionInitializable<" + typeParameters + "> : IEnumerable");
 		WriteBlock(() =>
 		{
 			var addParameters = string.Join(", ", numbers.Select(x => "T" + x + " item" + x));
