@@ -52,6 +52,9 @@
     <Compile Include="ControlFlow\SwitchStatement\SwitchStatementTest.cs" />
     <Compile Include="ControlFlow\SwitchStatement\SwitchStatementTestBase.cs" />
     <Compile Include="ControlFlow\SwitchStatement\SyntaxTest.cs" />
+    <Compile Include="Extensions\CancellationTokenExtensions\CancellationTokenExtensionsTestBase.cs" />
+    <Compile Include="Extensions\CancellationTokenExtensions\CombinationTests.cs" />
+    <Compile Include="Extensions\CancellationTokenExtensions\WithTimeoutTests.cs" />
     <Compile Include="Extensions\IEnumerableExtensions\BoolResultType.cs" />
     <Compile Include="Extensions\IEnumerableExtensions\IEnumerableExtensionsTestBase.cs" />
     <Compile Include="Extensions\IEnumerableExtensions\NoneTest.cs" />
