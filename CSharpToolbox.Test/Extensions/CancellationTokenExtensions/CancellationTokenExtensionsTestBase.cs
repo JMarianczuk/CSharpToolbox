@@ -10,6 +10,8 @@ namespace CSharpToolbox.Test.Extensions.CancellationTokenExtensions
         protected CancellationTokenSource Source;
         protected CancellationToken Token;
 
+        protected static readonly CancellationToken[] NoTokens = { };
+
         protected void ATokenSource()
         {
             Source = new CancellationTokenSource();

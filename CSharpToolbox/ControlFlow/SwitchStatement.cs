@@ -36,6 +36,7 @@ namespace CSharpToolbox.ControlFlow
             {
                 if (DefaultInternal != null)
                 {
+                    DefaultInternal.Action?.Invoke();
                     return new SwitchResult()
                     {
                         Matched = true,

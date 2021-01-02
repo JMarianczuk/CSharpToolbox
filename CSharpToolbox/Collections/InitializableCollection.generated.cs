@@ -5,7 +5,9 @@ using System.Collections.Generic;
 
 namespace CSharpToolbox.Collections
 {
-    public abstract class InitializableCollectionBase<TElement> : ICollectionInitializable<TElement>
+    public abstract class InitializableCollectionBase<TElement> 
+        : ICollectionInitializable<TElement>, 
+        IEnumerable<TElement>
     {
         protected readonly IList<TElement> Container = new List<TElement>();
 
@@ -24,7 +26,10 @@ namespace CSharpToolbox.Collections
             return GetEnumerator();
         }
     }
-    public class InitializableCollection<TElement> : InitializableCollectionBase<TElement>
+    public class InitializableCollection<TElement> 
+        : InitializableCollectionBase<TElement>,
+        ICollectionInitializable<TElement>,
+        IEnumerable<TElement>
     {
         
     }

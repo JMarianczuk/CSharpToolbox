@@ -1,0 +1,45 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".generated.cs" #>
+<#@ include file="..\\..\\..\\CSharpToolbox\\CodeGeneration\\CodeGeneration.ttinclude" #>
+
+using CSharpToolbox.Collections;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace CSharpToolbox.Test.Collections.InitializableCollection
+{
+<#
+WriteIndented(() => {
+	foreach (var number in Enumerable.Range(2, 15))
+	{
+		WriteLine("[TestClass]");
+		var numberString = (number <= 9 ? "0" : "") + number.ToString();
+		WriteLine($"public class With{numberString}Parameters : InitializableCollectionTestBase");
+		WriteBlock(() => {
+			var sumParameters = string.Join(", ", Enumerable.Range(1, number).Select(x => $"int x{x}"));
+			var sum = string.Join(" + ", Enumerable.Range(1, number).Select(x => $"x{x}"));
+			WriteLine($"private int Sum({sumParameters}) => {sum};");
+			
+			var genericParameters = string.Join(", ", Enumerable.Repeat("int", number + 1));
+
+			WriteLine($"private InitializableCollection<{genericParameters}> GetCollection() => new InitializableCollection<{genericParameters}>(Sum);");
+
+			WriteLine($"protected override void AnInitializableCollection() => Initializable = GetCollection();");
+
+			WriteLine("[TestMethod]");
+			WriteLine("public void AddViaMapTest()");
+			WriteBlock(() => {
+				WriteLine($"var collection = GetCollection();");
+				var values = string.Join(", ", Enumerable.Range(1, number));
+				WriteLine($"When(() => collection.Add({values}));");
+				WriteLine($"Then(() => collection.Should().BeEquivalentTo({Enumerable.Range(1, number).Sum()}));");
+			});
+		});
+	}
+});
+#>
+}

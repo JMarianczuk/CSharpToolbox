@@ -34,7 +34,17 @@ namespace CSharpToolbox.Test.Extensions.CancellationTokenExtensions
         {
             Given(ATokenSource);
             When(ATimeoutIsAdded(TimeSpan.FromMilliseconds(1)));
-            await Task.Delay(TimeSpan.FromMilliseconds(20));
+            await Task.Delay(TimeSpan.FromMilliseconds(10));
+            await Task.Yield();
+            await Task.Delay(TimeSpan.FromMilliseconds(10));
+            Then(TheResultTokenIsCancelled);
+        }
+
+        [TestMethod]
+        public void CanceledWithTimeout()
+        {
+            Given(ATokenSource);
+            When(TheSourceIsCancelled, ATimeoutIsAdded(TimeSpan.FromSeconds(1)));
             Then(TheResultTokenIsCancelled);
         }
     }

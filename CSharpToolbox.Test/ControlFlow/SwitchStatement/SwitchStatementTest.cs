@@ -121,6 +121,15 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         }
 
         [TestMethod]
+        public void SwitchDefaultAction()
+        {
+            bool called = false;
+            Given(ASwitchStatement, ADefaultSection(action: () => called = true));
+            When(TheSwitchIsEvaluatedWith("abc"));
+            called.Should().BeTrue();
+        }
+
+        [TestMethod]
         public void SwitchMultipleSectionAction()
         {
             bool firstCalled = false;

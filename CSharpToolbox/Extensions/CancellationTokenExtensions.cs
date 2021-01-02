@@ -14,11 +14,6 @@ namespace CSharpToolbox.Extensions
         {
             var timeoutSource = new CancellationTokenSource();
             token.Register(timeoutSource.Cancel);
-            if (token.IsCancellationRequested)
-            {
-                timeoutSource.Cancel();
-                return timeoutSource.Token;
-            }
             timeoutSource.CancelAfter(timeout);
             return timeoutSource.Token;
         }
@@ -28,10 +23,6 @@ namespace CSharpToolbox.Extensions
             var combinedTokenSource = new CancellationTokenSource();
             token.Register(combinedTokenSource.Cancel);
             tokens.ForEach(t => t.Register(combinedTokenSource.Cancel));
-            if (token.IsCancellationRequested || tokens.Any(t => t.IsCancellationRequested))
-            {
-                combinedTokenSource.Cancel();
-            }
             return combinedTokenSource.Token;
         }
     }
