@@ -1,5 +1,6 @@
 ﻿using System;
 using CSharpToolbox.ControlFlow;
+using CSharpToolbox.UnitTesting;
 using FluentAssertions;
 
 namespace CSharpToolbox.Test.ControlFlow.SwitchStatement

@@ -44,7 +44,9 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void PushFrontBackPopBackTest()
         {
             Given(ADeQueue);
-            When(NumbersArePushedFront(1), NumbersArePushedBack(2), ANumberIsPoppedBack);
+            When(NumbersArePushedFront(1))
+                .And(NumbersArePushedBack(2))
+                .And(ANumberIsPoppedBack);
             Then(TheQueueContains(1));
         }
 
@@ -52,7 +54,9 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void PushFrontBackPopFrontTest()
         {
             Given(ADeQueue);
-            When(NumbersArePushedFront(1), NumbersArePushedBack(2), ANumberIsPoppedFront);
+            When(NumbersArePushedFront(1))
+                .And(NumbersArePushedBack(2))
+                .And(ANumberIsPoppedFront);
             Then(TheQueueContains(2));
         }
 
@@ -72,9 +76,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
             int number = 0;
             Given(ADeQueueContaining(1, 2, 3, 4));
             When(() => TryPopFront(out wasPopped, out number));
-            Then(
-                () => wasPopped.Should().BeTrue(),
-                () => number.Should().Be(1));
+            Then(() => wasPopped.Should().BeTrue())
+                .And(() => number.Should().Be(1));
         }
 
         [TestMethod]
@@ -101,9 +104,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
             int number = 0;
             Given(ADeQueueContaining(1, 2, 3, 4));
             When(() => TryPopBack(out wasPopped, out number));
-            Then(
-                () => wasPopped.Should().BeTrue(),
-                () => number.Should().Be(4));
+            Then(() => wasPopped.Should().BeTrue())
+                .And(() => number.Should().Be(4));
         }
 
         [TestMethod]

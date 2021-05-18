@@ -50,14 +50,16 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchSingleSectionMatched()
         {
-            Given(ASwitchStatement, ASwitchSection("abc"));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc"));
             When(TheSwitchIsEvaluatedWith("abc"));
             Then(TheValueWasMatched);
         }
         [TestMethod]
         public void SwitchSingleSectionNotMatched()
         {
-            Given(ASwitchStatement, ASwitchSection("abc"));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc"));
             When(TheSwitchIsEvaluatedWith("def"));
             Then(TheValueWasNotMatched);
         }
@@ -65,10 +67,9 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchMultipleSectionsMatched()
         {
-            Given(
-                ASwitchStatement,
-                ASwitchSection("abc"),
-                ASwitchSection("def"));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc"))
+                .And(ASwitchSection("def"));
 
             When(TheSwitchIsEvaluatedWith("abc"));
             Then(TheValueWasMatched);
@@ -80,10 +81,9 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchMultipleSectionsNotMatched()
         {
-            Given(
-                ASwitchStatement,
-                ASwitchSection("abc"),
-                ASwitchSection("def"));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc"))
+                .And(ASwitchSection("def"));
             When(TheSwitchIsEvaluatedWith("ghi"));
             Then(TheValueWasNotMatched);
         }
@@ -91,7 +91,8 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchSingleSectionResult()
         {
-            Given(ASwitchStatement, ASwitchSection("abc", result: 1));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc", result: 1));
             When(TheSwitchIsEvaluatedWith("abc"));
             Then(TheResultIs(1));
         }
@@ -99,10 +100,9 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchMultipleSectionsResult()
         {
-            Given(
-                ASwitchStatement,
-                ASwitchSection("abc", result: 1),
-                ASwitchSection("def", result: 2));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc", result: 1))
+                .And(ASwitchSection("def", result: 2));
 
             When(TheSwitchIsEvaluatedWith("abc"));
             Then(TheResultIs(1));
@@ -115,7 +115,8 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         public void SwitchSingleSectionAction()
         {
             bool called = false;
-            Given(ASwitchStatement, ASwitchSection("abc", action: () => called = true));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc", action: () => called = true));
             When(TheSwitchIsEvaluatedWith("abc"));
             called.Should().BeTrue();
         }
@@ -124,7 +125,8 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         public void SwitchDefaultAction()
         {
             bool called = false;
-            Given(ASwitchStatement, ADefaultSection(action: () => called = true));
+            Given(ASwitchStatement)
+                .And(ADefaultSection(action: () => called = true));
             When(TheSwitchIsEvaluatedWith("abc"));
             called.Should().BeTrue();
         }
@@ -134,10 +136,9 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         {
             bool firstCalled = false;
             bool secondCalled = false;
-            Given(
-                ASwitchStatement,
-                ASwitchSection("abc", action: () => firstCalled = true),
-                ASwitchSection("def", action: () => secondCalled = true));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc", action: () => firstCalled = true))
+                .And(ASwitchSection("def", action: () => secondCalled = true));
 
             When(TheSwitchIsEvaluatedWith("abc"));
             firstCalled.Should().BeTrue();
@@ -153,7 +154,8 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchNullValueMatched()
         {
-            Given(ASwitchStatement, ASwitchSection(null));
+            Given(ASwitchStatement)
+                .And(ASwitchSection(null));
             When(TheSwitchIsEvaluatedWith(null));
             Then(TheValueWasMatched);
         }
@@ -161,7 +163,8 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchNullValueNotMatched()
         {
-            Given(ASwitchStatement, ASwitchSection("abc"));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc"));
             When(TheSwitchIsEvaluatedWith(null));
             Then(TheValueWasNotMatched);
         }
@@ -169,7 +172,8 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchOnlyDefaultSectionMatched()
         {
-            Given(ASwitchStatement, ADefaultSection());
+            Given(ASwitchStatement)
+                .And(ADefaultSection());
             When(TheSwitchIsEvaluatedWith("abc"));
             Then(TheValueWasMatched);
         }
@@ -177,7 +181,8 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchOnlyDefaultSectionReturn()
         {
-            Given(ASwitchStatement, ADefaultSection(result: 4));
+            Given(ASwitchStatement)
+                .And(ADefaultSection(result: 4));
             When(TheSwitchIsEvaluatedWith("abc"));
             Then(TheResultIs(4));
         }
@@ -185,10 +190,9 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchSingleSectionAndDefault_SectionMatched()
         {
-            Given(
-                ASwitchStatement,
-                ASwitchSection("abc"),
-                ADefaultSection());
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc"))
+                .And(ADefaultSection());
             When(TheSwitchIsEvaluatedWith("abc"));
             Then(TheValueWasMatched);
         }
@@ -197,10 +201,9 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchSingleSectionAndDefault_DefaultMatched()
         {
-            Given(
-                ASwitchStatement,
-                ASwitchSection("abc"),
-                ADefaultSection());
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc"))
+                .And(ADefaultSection());
             When(TheSwitchIsEvaluatedWith("def"));
             Then(TheValueWasMatched);
         }
@@ -208,20 +211,18 @@ namespace CSharpToolbox.Test.ControlFlow.SwitchStatement
         [TestMethod]
         public void SwitchSingleSectionAndDefault_SectionReturn()
         {
-            Given(
-                ASwitchStatement,
-                ASwitchSection("abc", result: 1),
-                ADefaultSection(result: 3));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc", result: 1))
+                .And(ADefaultSection(result: 3));
             When(TheSwitchIsEvaluatedWith("abc"));
             Then(TheResultIs(1));
         }
         [TestMethod]
         public void SwitchSingleSectionAndDefault_DefaultReturn()
         {
-            Given(
-                ASwitchStatement,
-                ASwitchSection("abc", result: 1),
-                ADefaultSection(result: 3));
+            Given(ASwitchStatement)
+                .And(ASwitchSection("abc", result: 1))
+                .And(ADefaultSection(result: 3));
             When(TheSwitchIsEvaluatedWith("def"));
             Then(TheResultIs(3));
         }

@@ -50,9 +50,8 @@ namespace CSharpToolbox.Test.Extensions.IEnumeratorExtensions
         [TestMethod]
         public void TwoEmptyEnumeratorsTest()
         {
-            Given(
-                AnEnumeratorFor(AnEmptyList), 
-                AnotherEnumeratorFor(AnEmptyList));
+            Given(AnEnumeratorFor(AnEmptyList))
+                .And(AnotherEnumeratorFor(AnEmptyList));
             When(TheEnumeratorsAreConcatenated);
             Then(TheConcatenationEnumeratesTo(AnEmptyList));
         }
@@ -60,9 +59,8 @@ namespace CSharpToolbox.Test.Extensions.IEnumeratorExtensions
         [TestMethod]
         public void FirstEnumeratorEmptyTest()
         {
-            Given(
-                AnEnumeratorFor(AnEmptyList), 
-                AnotherEnumeratorFor(1, 2, 3, 4));
+            Given(AnEnumeratorFor(AnEmptyList))
+                .And(AnotherEnumeratorFor(1, 2, 3, 4));
             When(TheEnumeratorsAreConcatenated);
             Then(TheConcatenationEnumeratesTo(1, 2, 3, 4));
         }
@@ -70,9 +68,8 @@ namespace CSharpToolbox.Test.Extensions.IEnumeratorExtensions
         [TestMethod]
         public void SecondEnumeratorEmptyTest()
         {
-            Given(
-                AnEnumeratorFor(5, 6, 7, 8), 
-                AnotherEnumeratorFor(AnEmptyList));
+            Given(AnEnumeratorFor(5, 6, 7, 8))
+                .And(AnotherEnumeratorFor(AnEmptyList));
             When(TheEnumeratorsAreConcatenated);
             Then(TheConcatenationEnumeratesTo(5, 6, 7, 8));
         }
@@ -80,9 +77,8 @@ namespace CSharpToolbox.Test.Extensions.IEnumeratorExtensions
         [TestMethod]
         public void BothEnumeratorsWithNumbersTest()
         {
-            Given(
-                AnEnumeratorFor(5, 6, 7, 8), 
-                AnotherEnumeratorFor(1, 2, 3, 4));
+            Given(AnEnumeratorFor(5, 6, 7, 8))
+                .And(AnotherEnumeratorFor(1, 2, 3, 4));
             When(TheEnumeratorsAreConcatenated);
             Then(TheConcatenationEnumeratesTo(5, 6, 7, 8, 1, 2, 3, 4));
         }

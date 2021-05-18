@@ -25,7 +25,8 @@ namespace CSharpToolbox.Test.Extensions.CancellationTokenExtensions
         public void LongTimeoutTest_WithSourceCancel()
         {
             Given(ATokenSource);
-            When(ATimeoutIsAdded(TimeSpan.FromMinutes(1)), TheSourceIsCancelled);
+            When(ATimeoutIsAdded(TimeSpan.FromMinutes(1)))
+                .And(TheSourceIsCancelled);
             Then(TheResultTokenIsCancelled);
         }
 
@@ -44,7 +45,8 @@ namespace CSharpToolbox.Test.Extensions.CancellationTokenExtensions
         public void CanceledWithTimeout()
         {
             Given(ATokenSource);
-            When(TheSourceIsCancelled, ATimeoutIsAdded(TimeSpan.FromSeconds(1)));
+            When(TheSourceIsCancelled)
+                .And(ATimeoutIsAdded(TimeSpan.FromSeconds(1)));
             Then(TheResultTokenIsCancelled);
         }
     }

@@ -55,7 +55,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void LooparoundTest()
         {
             Given(ADeQueueWithInitialCapacity(6));
-            When(NumbersArePushedBack(1, 2), NumbersArePushedFront(3, 4));
+            When(NumbersArePushedBack(1, 2))
+                .And(NumbersArePushedFront(3, 4));
             Then(TheQueueContains(4, 3, 1, 2));
         }
 
@@ -63,7 +64,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void FullLooparoundTest()
         {
             Given(ADeQueueWithInitialCapacity(6));
-            When(NumbersArePushedBack(1, 2, 3), NumbersArePushedFront(4, 5, 6));
+            When(NumbersArePushedBack(1, 2, 3))
+                .And(NumbersArePushedFront(4, 5, 6));
             Then(TheQueueContains(6, 5, 4, 1, 2, 3));
         }
     }

@@ -33,7 +33,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         [TestMethod]
         public void StandardCopyToTest()
         {
-            Given(ADeQueueContaining(1, 2, 3, 4), AnArrayOfSize(4));
+            Given(ADeQueueContaining(1, 2, 3, 4))
+                .And(AnArrayOfSize(4));
             When(TheQueueIsCopiedToTheArray);
             Then(TheArrayContains(1, 2, 3, 4));
         }
@@ -41,31 +42,40 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         [TestMethod]
         public void PartlyFilledCopyToTest()
         {
-            Given(ADeQueueWithInitialCapacity(6), AnArrayOfSize(4));
-            When(NumbersArePushedBack(1, 2, 3, 4), TheQueueIsCopiedToTheArray);
+            Given(ADeQueueWithInitialCapacity(6))
+                .And(AnArrayOfSize(4));
+            When(NumbersArePushedBack(1, 2, 3, 4))
+                .And(TheQueueIsCopiedToTheArray);
             Then(TheArrayContains(1, 2, 3, 4));
         }
 
         [TestMethod]
         public void LooparoundCopyToTest()
         {
-            Given(ADeQueueWithInitialCapacity(6), AnArrayOfSize(4));
-            When(NumbersArePushedBack(1, 2), NumbersArePushedFront(3, 4), TheQueueIsCopiedToTheArray);
+            Given(ADeQueueWithInitialCapacity(6))
+                .And(AnArrayOfSize(4));
+            When(NumbersArePushedBack(1, 2))
+                .And(NumbersArePushedFront(3, 4))
+                .And(TheQueueIsCopiedToTheArray);
             Then(TheArrayContains(4, 3, 1, 2));
         }
 
         [TestMethod]
         public void CompleteLooparoundCopyToTest()
         {
-            Given(ADeQueueWithInitialCapacity(6), AnArrayOfSize(6));
-            When(NumbersArePushedBack(1, 2, 3), NumbersArePushedFront(4, 5, 6), TheQueueIsCopiedToTheArray);
+            Given(ADeQueueWithInitialCapacity(6))
+                .And(AnArrayOfSize(6));
+            When(NumbersArePushedBack(1, 2, 3))
+                .And(NumbersArePushedFront(4, 5, 6))
+                .And(TheQueueIsCopiedToTheArray);
             Then(TheArrayContains(6, 5, 4, 1, 2, 3));
         }
 
         [TestMethod]
         public void StandardCopyToAtIndexTest()
         {
-            Given(ADeQueueContaining(1, 2, 3, 4), AnArrayOfSize(6, -1));
+            Given(ADeQueueContaining(1, 2, 3, 4))
+                .And(AnArrayOfSize(6, -1));
             When(TheQueueIsCopiedToTheArrayAtIndex(2));
             Then(TheArrayContains(-1, -1, 1, 2, 3, 4));
         }
@@ -73,24 +83,32 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         [TestMethod]
         public void PartlyFilledCopyToAtIndexTest()
         {
-            Given(ADeQueueWithInitialCapacity(6), AnArrayOfSize(6, 7));
-            When(NumbersArePushedBack(1, 2, 3, 4), TheQueueIsCopiedToTheArrayAtIndex(2));
+            Given(ADeQueueWithInitialCapacity(6))
+                .And(AnArrayOfSize(6, 7));
+            When(NumbersArePushedBack(1, 2, 3, 4))
+                .And(TheQueueIsCopiedToTheArrayAtIndex(2));
             Then(TheArrayContains(7, 7, 1, 2, 3, 4));
         }
 
         [TestMethod]
         public void LooparoundCopyToAtIndexTest()
         {
-            Given(ADeQueueWithInitialCapacity(6), AnArrayOfSize(8, 0));
-            When(NumbersArePushedBack(1, 2), NumbersArePushedFront(3, 4), TheQueueIsCopiedToTheArrayAtIndex(4));
+            Given(ADeQueueWithInitialCapacity(6))
+                .And(AnArrayOfSize(8, 0));
+            When(NumbersArePushedBack(1, 2))
+                .And(NumbersArePushedFront(3, 4))
+                .And(TheQueueIsCopiedToTheArrayAtIndex(4));
             Then(TheArrayContains(0, 0, 0, 0, 4, 3, 1, 2));
         }
 
         [TestMethod]
         public void CompleteLooparoundCopyToAtIndexTest()
         {
-            Given(ADeQueueWithInitialCapacity(6), AnArrayOfSize(7, -1));
-            When(NumbersArePushedBack(1, 2, 3), NumbersArePushedFront(4, 5, 6), TheQueueIsCopiedToTheArrayAtIndex(0));
+            Given(ADeQueueWithInitialCapacity(6))
+                .And(AnArrayOfSize(7, -1));
+            When(NumbersArePushedBack(1, 2, 3))
+                .And(NumbersArePushedFront(4, 5, 6))
+                .And(TheQueueIsCopiedToTheArrayAtIndex(0));
             Then(TheArrayContains(6, 5, 4, 1, 2, 3, -1));
         }
 

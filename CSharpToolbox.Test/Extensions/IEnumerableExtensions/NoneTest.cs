@@ -30,7 +30,8 @@ namespace CSharpToolbox.Test.Extensions.IEnumerableExtensions
         [TestMethod]
         public void EmptyCollectionTest()
         {
-            Given(AnEmptyCollection, AFilterThatAllowsAnyNumber);
+            Given(AnEmptyCollection)
+                .And(AFilterThatAllowsAnyNumber);
             When(NoneIsInvoked);
             Then(TheResultIsTrue);
         }
@@ -38,7 +39,8 @@ namespace CSharpToolbox.Test.Extensions.IEnumerableExtensions
         [TestMethod]
         public void CollectionDoesNotContainFilterTest()
         {
-            Given(NumbersFromOneToTen, AFilterThatIsTrueFor(42));
+            Given(NumbersFromOneToTen)
+                .And(AFilterThatIsTrueFor(42));
             When(NoneIsInvoked);
             Then(TheResultIsTrue);
         }
@@ -46,7 +48,8 @@ namespace CSharpToolbox.Test.Extensions.IEnumerableExtensions
         [TestMethod]
         public void CollectionDoesContainFilterTest()
         {
-            Given(NumbersFromOneToTen, AFilterThatIsTrueFor(3));
+            Given(NumbersFromOneToTen)
+                .And(AFilterThatIsTrueFor(3));
             When(NoneIsInvoked);
             Then(TheResultIsFalse);
         }

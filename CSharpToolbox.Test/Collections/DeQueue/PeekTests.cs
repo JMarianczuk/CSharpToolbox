@@ -7,58 +7,6 @@ namespace CSharpToolbox.Test.Collections.DeQueue
     [TestClass]
     public class PeekTests : DeQueueTestBase
     {
-        protected int Peek;
-        protected bool PeekSuccessful;
-
-        protected void TheFrontIsPeekedAt()
-        {
-            try
-            {
-                Peek = Queue.PeekFront();
-                PeekSuccessful = true;
-            }
-            catch
-            {
-                PeekSuccessful = false;
-            }
-        }
-
-        protected void TheBackIsPeekedAt()
-        {
-            try
-            {
-                Peek = Queue.PeekBack();
-                PeekSuccessful = true;
-            }
-            catch
-            {
-                PeekSuccessful = false;
-            }
-        }
-
-        protected void TryPeekFrontIsInvoked()
-        {
-            PeekSuccessful = Queue.TryPeekFront(out Peek);
-        }
-        protected void TryPeekBackIsInvoked()
-        {
-            PeekSuccessful = Queue.TryPeekBack(out Peek);
-        }
-
-        protected void ThePeekWasSuccessful()
-        {
-            PeekSuccessful.Should().BeTrue();
-        }
-        protected void ThePeekWasNotSuccessful()
-        {
-            PeekSuccessful.Should().BeFalse();
-        }
-
-        protected Action ThePeekedAtNumberIs(int number)
-        {
-            return () => Peek.Should().Be(number);
-        }
-
         [TestMethod]
         public void PeekFrontTest()
         {
@@ -79,7 +27,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void PeekFrontAfterPushFront()
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
-            When(ANumberIsPushedFront(5), TheFrontIsPeekedAt);
+            When(ANumberIsPushedFront(5))
+                .And(TheFrontIsPeekedAt);
             Then(ThePeekedAtNumberIs(5));
         }
 
@@ -87,7 +36,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void PeekFrontAfterPushBack()
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
-            When(ANumberIsPushedBack(5), TheFrontIsPeekedAt);
+            When(ANumberIsPushedBack(5))
+                .And(TheFrontIsPeekedAt);
             Then(ThePeekedAtNumberIs(1));
         }
 
@@ -95,7 +45,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void PeekBackAfterPushFront()
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
-            When(ANumberIsPushedFront(5), TheBackIsPeekedAt);
+            When(ANumberIsPushedFront(5))
+                .And(TheBackIsPeekedAt);
             Then(ThePeekedAtNumberIs(4));
         }
 
@@ -103,8 +54,19 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void PeekBackAfterPushBack()
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
-            When(ANumberIsPushedBack(5), TheBackIsPeekedAt);
+            When(ANumberIsPushedBack(5))
+                .And(TheBackIsPeekedAt);
             Then(ThePeekedAtNumberIs(5));
+        }
+
+        [TestMethod]
+        public void PeekBackAfterTwoPushes()
+        {
+            Given(ADeQueue);
+            When(ANumberIsPushedFront(1))
+                .And(ANumberIsPushedBack(2))
+                .And(TheBackIsPeekedAt);
+            Then(ThePeekedAtNumberIs(2));
         }
 
         [TestMethod]
@@ -112,7 +74,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
             When(TryPeekFrontIsInvoked);
-            Then(ThePeekWasSuccessful, ThePeekedAtNumberIs(1));
+            Then(ThePeekWasSuccessful)
+                .And(ThePeekedAtNumberIs(1));
         }
 
         [TestMethod]
@@ -120,39 +83,48 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
             When(TryPeekBackIsInvoked);
-            Then(ThePeekWasSuccessful, ThePeekedAtNumberIs(4));
+            Then(ThePeekWasSuccessful)
+                .And(ThePeekedAtNumberIs(4));
         }
 
         [TestMethod]
         public void TryPeekFrontAfterPushFront()
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
-            When(ANumberIsPushedFront(5), TryPeekFrontIsInvoked);
-            Then(ThePeekWasSuccessful, ThePeekedAtNumberIs(5));
+            When(ANumberIsPushedFront(5))
+                .And(TryPeekFrontIsInvoked);
+            Then(ThePeekWasSuccessful)
+                .And(ThePeekedAtNumberIs(5));
         }
 
         [TestMethod]
         public void TryPeekFrontAfterPushBack()
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
-            When(ANumberIsPushedBack(5), TryPeekFrontIsInvoked);
-            Then(ThePeekWasSuccessful, ThePeekedAtNumberIs(1));
+            When(ANumberIsPushedBack(5))
+                .And(TryPeekFrontIsInvoked);
+            Then(ThePeekWasSuccessful)
+                .And(ThePeekedAtNumberIs(1));
         }
 
         [TestMethod]
         public void TryPeekBackAfterPushFront()
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
-            When(ANumberIsPushedFront(5), TryPeekBackIsInvoked);
-            Then(ThePeekWasSuccessful, ThePeekedAtNumberIs(4));
+            When(ANumberIsPushedFront(5))
+                .And(TryPeekBackIsInvoked);
+            Then(ThePeekWasSuccessful)
+                .And(ThePeekedAtNumberIs(4));
         }
 
         [TestMethod]
         public void TryPeekBackAfterPushBack()
         {
             Given(ADeQueueContaining(1, 2, 3, 4));
-            When(ANumberIsPushedBack(5), TryPeekBackIsInvoked);
-            Then(ThePeekWasSuccessful, ThePeekedAtNumberIs(5));
+            When(ANumberIsPushedBack(5))
+                .And(TryPeekBackIsInvoked);
+            Then(ThePeekWasSuccessful)
+                .And(ThePeekedAtNumberIs(5));
         }
 
         [TestMethod]
@@ -175,7 +147,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void TryPeekFrontAfterPopFront()
         {
             Given(ADeQueueContaining(1));
-            When(ANumberIsPoppedFront, TryPeekFrontIsInvoked);
+            When(ANumberIsPoppedFront)
+                .And(TryPeekFrontIsInvoked);
             Then(ThePeekWasNotSuccessful);
         }
 
@@ -183,7 +156,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void TryPeekFrontAfterPopBack()
         {
             Given(ADeQueueContaining(1));
-            When(ANumberIsPoppedBack, TryPeekFrontIsInvoked);
+            When(ANumberIsPoppedBack)
+                .And(TryPeekFrontIsInvoked);
             Then(ThePeekWasNotSuccessful);
         }
 
@@ -207,7 +181,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void TryPeekBackAfterPopFront()
         {
             Given(ADeQueueContaining(1));
-            When(ANumberIsPoppedFront, TryPeekBackIsInvoked);
+            When(ANumberIsPoppedFront)
+                .And(TryPeekBackIsInvoked);
             Then(ThePeekWasNotSuccessful);
         }
 
@@ -215,7 +190,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void TryPeekBackAfterPopBack()
         {
             Given(ADeQueueContaining(1));
-            When(ANumberIsPoppedBack, TryPeekBackIsInvoked);
+            When(ANumberIsPoppedBack)
+                .And(TryPeekBackIsInvoked);
             Then(ThePeekWasNotSuccessful);
         }
 

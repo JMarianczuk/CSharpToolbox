@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CSharpToolbox.Collections;
+using CSharpToolbox.UnitTesting;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoreLinq;
@@ -162,6 +163,57 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         protected Action TheLastNumberIs(int number)
         {
             return () => Queue.Last().Should().Be(number);
+        }
+        protected int Peek;
+        protected bool PeekSuccessful;
+
+        protected void TheFrontIsPeekedAt()
+        {
+            try
+            {
+                Peek = Queue.PeekFront();
+                PeekSuccessful = true;
+            }
+            catch
+            {
+                PeekSuccessful = false;
+            }
+        }
+
+        protected void TheBackIsPeekedAt()
+        {
+            try
+            {
+                Peek = Queue.PeekBack();
+                PeekSuccessful = true;
+            }
+            catch
+            {
+                PeekSuccessful = false;
+            }
+        }
+
+        protected void TryPeekFrontIsInvoked()
+        {
+            PeekSuccessful = Queue.TryPeekFront(out Peek);
+        }
+        protected void TryPeekBackIsInvoked()
+        {
+            PeekSuccessful = Queue.TryPeekBack(out Peek);
+        }
+
+        protected void ThePeekWasSuccessful()
+        {
+            PeekSuccessful.Should().BeTrue();
+        }
+        protected void ThePeekWasNotSuccessful()
+        {
+            PeekSuccessful.Should().BeFalse();
+        }
+
+        protected Action ThePeekedAtNumberIs(int number)
+        {
+            return () => Peek.Should().Be(number);
         }
     }
 }

@@ -33,7 +33,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void AutoShrinkTestPopFront()
         {
             Given(AnAutoShrinkingDeQueueWithCapacity(100));
-            When(NumbersArePushedFront(1, 2), ANumberIsPoppedFront);
+            When(NumbersArePushedFront(1, 2))
+                .And(ANumberIsPoppedFront);
             Then(TheCapacityIsLessThan(100));
         }
 
@@ -41,7 +42,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void AutoShrinkTestPopBack()
         {
             Given(AnAutoShrinkingDeQueueWithCapacity(100));
-            When(NumbersArePushedFront(1, 2), ANumberIsPoppedBack);
+            When(NumbersArePushedFront(1, 2))
+                .And(ANumberIsPoppedBack);
             Then(TheCapacityIsLessThan(100));
         }
 
@@ -49,7 +51,8 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void NoAutoShrinkTestPopFront()
         {
             Given(ADeQueueWithInitialCapacity(100));
-            When(NumbersArePushedFront(1, 2), ANumberIsPoppedFront);
+            When(NumbersArePushedFront(1, 2))
+                .And(ANumberIsPoppedFront);
             Then(TheCapacityIs(100));
         }
 
@@ -57,7 +60,9 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         public void TrimTest_NumbersAreRetained()
         {
             Given(ADeQueueWithInitialCapacity(100));
-            When(NumbersArePushedBack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), NumbersArePushedFront(17, 18), TheQueueIsTrimmed);
+            When(NumbersArePushedBack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+                .And(NumbersArePushedFront(17, 18))
+                .And(TheQueueIsTrimmed);
             Then(TheQueueContains(18, 17, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         }
 
@@ -66,8 +71,29 @@ namespace CSharpToolbox.Test.Collections.DeQueue
         {
             const int minimumNonZeroCapacity = 4;
             Given(ADeQueueWithInitialCapacity(minimumNonZeroCapacity));
-            When(NumbersArePushedBack(1), TheQueueIsTrimmed);
+            When(NumbersArePushedBack(1))
+                .And(TheQueueIsTrimmed);
             Then(TheCapacityIs(minimumNonZeroCapacity));
+        }
+
+        [TestMethod]
+        public void PeekBackAfterShrinkTest()
+        {
+            Given(ADeQueueWithInitialCapacity(100));
+            When(NumbersArePushedBack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+                .And(TheQueueIsTrimmed)
+                .And(TheBackIsPeekedAt);
+            Then(ThePeekedAtNumberIs(10));
+        }
+
+        [TestMethod]
+        public void PeekFrontAfterShrinkTest()
+        {
+            Given(ADeQueueWithInitialCapacity(100));
+            When(NumbersArePushedBack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+                .And(TheQueueIsTrimmed)
+                .And(TheFrontIsPeekedAt);
+            Then(ThePeekedAtNumberIs(1));
         }
     }
 }

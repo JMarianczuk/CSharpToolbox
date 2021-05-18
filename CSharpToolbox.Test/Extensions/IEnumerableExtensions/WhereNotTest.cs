@@ -35,15 +35,18 @@ namespace CSharpToolbox.Test.Extensions.IEnumerableExtensions
         [TestMethod]
         public void BasicFilter()
         {
-            Given(NumbersFromOneToTen, AFilterThatAllowsEvenNumbers);
+            Given(NumbersFromOneToTen)
+                .And(AFilterThatAllowsEvenNumbers);
             When(WhereNotIsInvoked);
-            Then(TheResultIsNotEmpty, TheResultIs(1, 3, 5, 7, 9));
+            Then(TheResultIsNotEmpty)
+                .And(TheResultIs(1, 3, 5, 7, 9));
         }
 
         [TestMethod]
         public void AlwaysTrueFilter()
         {
-            Given(NumbersFromOneToTen, AFilterThatAllowsAnyNumber);
+            Given(NumbersFromOneToTen)
+                .And(AFilterThatAllowsAnyNumber);
             When(WhereNotIsInvoked);
             Then(TheResultIsEmpty);
         }
@@ -51,15 +54,18 @@ namespace CSharpToolbox.Test.Extensions.IEnumerableExtensions
         [TestMethod]
         public void AlwaysFalseFilter()
         {
-            Given(NumbersFromOneToTen, AFilterThatAllowsNoNumber);
+            Given(NumbersFromOneToTen)
+                .And(AFilterThatAllowsNoNumber);
             When(WhereNotIsInvoked);
-            Then(TheResultIsNotEmpty, TheResultIs(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+            Then(TheResultIsNotEmpty)
+                .And(TheResultIs(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         }
 
         [TestMethod]
         public void EmptyCollectionTest()
         {
-            Given(AnEmptyCollection, AFilterThatAllowsNoNumber);
+            Given(AnEmptyCollection)
+                .And(AFilterThatAllowsNoNumber);
             When(WhereNotIsInvoked);
             Then(TheResultIsEmpty);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using CSharpToolbox.UnitTesting;
 
 namespace CSharpToolbox.Test.Extensions.StringExtensions
 {

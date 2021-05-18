@@ -51,7 +51,8 @@ namespace CSharpToolbox.Test.Extensions.CancellationTokenExtensions
         public void NoCombinationTest_WithSourceCancelBefore()
         {
             Given(ATokenSource);
-            When(TheSourceIsCancelled, TheTokenIsCombinedWith(NoTokens));
+            When(TheSourceIsCancelled)
+                .And(TheTokenIsCombinedWith(NoTokens));
             Then(TheResultTokenIsCancelled);
         }
 
@@ -59,14 +60,15 @@ namespace CSharpToolbox.Test.Extensions.CancellationTokenExtensions
         public void NoCombinationTest_WithSourceCancelAfter()
         {
             Given(ATokenSource);
-            When(TheTokenIsCombinedWith(NoTokens), TheSourceIsCancelled);
+            When(TheTokenIsCombinedWith(NoTokens)).And(TheSourceIsCancelled);
             Then(TheResultTokenIsCancelled);
         }
 
         [TestMethod]
         public void CombinationTest_NoSourceCancel()
         {
-            Given(ATokenSource, ASecondTokenSource);
+            Given(ATokenSource)
+                .And(ASecondTokenSource);
             When(TheTokensAreCombined);
             Then(TheResultTokenIsNotCancelled);
         }
@@ -74,32 +76,40 @@ namespace CSharpToolbox.Test.Extensions.CancellationTokenExtensions
         [TestMethod]
         public void CombinationTest_FirstSourceCancelBefore()
         {
-            Given(ATokenSource, ASecondTokenSource);
-            When(TheSourceIsCancelled, TheTokensAreCombined);
+            Given(ATokenSource)
+                .And(ASecondTokenSource);
+            When(TheSourceIsCancelled)
+                .And(TheTokensAreCombined);
             Then(TheResultTokenIsCancelled);
         }
 
         [TestMethod]
         public void CombinationTest_FirstSourceCancelAfter()
         {
-            Given(ATokenSource, ASecondTokenSource);
-            When(TheTokensAreCombined, TheSourceIsCancelled);
+            Given(ATokenSource)
+                .And(ASecondTokenSource);
+            When(TheTokensAreCombined)
+                .And(TheSourceIsCancelled);
             Then(TheResultTokenIsCancelled);
         }
 
         [TestMethod]
         public void CombinationTest_SecondSourceCancelBefore()
         {
-            Given(ATokenSource, ASecondTokenSource);
-            When(TheSecondSourceIsCancelled, TheTokensAreCombined);
+            Given(ATokenSource)
+                .And(ASecondTokenSource);
+            When(TheSecondSourceIsCancelled)
+                .And(TheTokensAreCombined);
             Then(TheResultTokenIsCancelled);
         }
 
         [TestMethod]
         public void CombinationTest_SecondSourceCancelAfter()
         {
-            Given(ATokenSource, ASecondTokenSource);
-            When(TheTokensAreCombined, TheSecondSourceIsCancelled);
+            Given(ATokenSource)
+                .And(ASecondTokenSource);
+            When(TheTokensAreCombined)
+                .And(TheSecondSourceIsCancelled);
             Then(TheResultTokenIsCancelled);
         }
     }
