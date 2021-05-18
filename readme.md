@@ -1,4 +1,4 @@
-﻿# ![Logo](Doc/icons/toolbox-logo-128.png) CSharpToolbox
+﻿# ![Logo](CSharpToolbox/Doc/icons/toolbox-logo-128.png) CSharpToolbox
 
 Not the greatest name for a project, but it does what it claims to do:
 It's a set of little helper functions and life-easier-makers that I found myself copy-pasting into multiple projects.
